@@ -1,1 +1,38 @@
-<p>details works!</p>
+<div class="card mt-2">
+  <div class="card-header">Employee Details</div>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Name:
+        <h5>Albert</h5>
+        Email:
+        <h5>yo@gmail.com</h5>
+        Start Date:
+        <h5>01/10/2021</h5>
+      </li>
+    </ul>
+  </div>
+  <div class="btn-group" role="group">
+    <button
+      type="button"
+      class="btn btn-outline-warning m-1 btn-sm"
+      (click)="onGoToEdit()"
+    >
+      Edit
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-danger m-1 btn-sm"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+<button
+  type="button"
+  class="btn btn-outline-secondary mt-2"
+  (click)="onGoBackToList()"
+>
+  Go Back To List
+</button>
