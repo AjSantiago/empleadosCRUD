@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -7,6 +7,15 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  fakeData = [
+    {
+      name: 'Albert',
+      lastName: 'Santiago',
+      email: 'yo@gmail.com',
+      startDate: '01/10/2021',
+    },
+  ];
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {}

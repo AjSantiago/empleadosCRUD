@@ -11,11 +11,15 @@ export class DetailsComponent implements OnInit {
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { value: string };
-    this.employee = state.value;
+    const state = navigation?.extras.state as { value: null };
+    this.employee = state?.value;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (typeof this.employee === 'undefined') {
+      this.router.navigate(['list']);
+    }
+  }
 
   onGoToEdit(): void {
     this.router.navigate(['edit'], { state: { value: this.employee } });

@@ -9,10 +9,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-active" *ngFor="let item of [0, 1, 2]">
-        <th scope="row">Albert</th>
-        <td>yo@gmail.com</td>
-        <td>01/10/2021</td>
+      <tr class="table-active" *ngFor="let item of fakeData">
+        <th scope="row">{{ item.name }} {{ item.lastName }}</th>
+        <td>{{ item.email }}</td>
+        <td>{{ item.startDate }}</td>
         <td class="btn btn-group d-none d-sm-block" role="group">
           <button
             type="button"

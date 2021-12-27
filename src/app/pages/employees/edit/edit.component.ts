@@ -8,19 +8,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-  valor: string;
+  employee = null;
   employeeForm!: FormGroup;
   private isEmail =
     '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}';
 
   constructor(private router: Router, private fb: FormBuilder) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { value: string };
-    this.valor = state.value;
+    const state = navigation?.extras.state as { value: null };
+    this.employee = state.value;
+    this.initForm();
   }
 
   ngOnInit(): void {
-    this.initForm();
+    if (typeof this.employee === 'undefined') {
+      this.router.navigate(['new']);
+    } else {
+      this.employeeForm.patchValue(this.employee!);
+    }
   }
 
   onSave(): void {
@@ -34,5 +39,9 @@ export class EditComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(this.isEmail)]],
       startDate: ['', [Validators.required]],
     });
+  }
+
+  onGoBackToList(): void {
+    this.router.navigate(['list']);
   }
 }
