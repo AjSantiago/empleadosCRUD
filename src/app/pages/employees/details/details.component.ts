@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Employee } from 'src/app/shared/components/header/models/employee.interface';
 
 @Component({
   selector: 'app-details',
@@ -7,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
-  employee: any = null;
+  employee: Employee;
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { value: null };
+    const state = navigation?.extras.state as { value: Employee };
     this.employee = state?.value;
   }
 
