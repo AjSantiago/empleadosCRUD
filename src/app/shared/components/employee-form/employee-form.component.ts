@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from '../header/models/employee.interface';
+import { EmployeesService } from '../../../pages/employees/employees.service';
 
 @Component({
   selector: 'app-employee-form',
@@ -14,10 +15,14 @@ export class EmployeeFormComponent implements OnInit {
   private isEmail =
     '[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}';
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private employeeSvc: EmployeesService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { value: Employee };
-    this.employee = state.value;
+    this.employee = state?.value;
     this.initForm();
   }
 
@@ -31,6 +36,12 @@ export class EmployeeFormComponent implements OnInit {
 
   onSave(): void {
     console.log('Saved', this.employeeForm.value);
+    if (this.employeeForm.valid) {
+      const employee = this.employeeForm.value;
+      const employeeId = this.employee?.id || null;
+      this.employeeSvc.onSaveEmployee(employee, employeeId);
+      this.employeeForm.reset();
+    }
   }
 
   private initForm(): void {
