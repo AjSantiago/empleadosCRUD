@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-list',
@@ -7,16 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  fakeData = [
-    {
-      name: 'Albert',
-      lastName: 'Santiago',
-      email: 'yo@gmail.com',
-      startDate: '01/10/2021',
-    },
-  ];
+  employees$ = this.employeesSvc.employees;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private employeesSvc: EmployeesService) {}
 
   ngOnInit(): void {}
 
@@ -26,7 +20,12 @@ export class ListComponent implements OnInit {
   onGoToSee(item: any): void {
     this.router.navigate(['details'], { state: { value: item } });
   }
-  onGoToDelete(item: any): void {
-    alert('Deleted');
+  async onGoToDelete(empId?: string): Promise<void> {
+    try {
+      await this.employeesSvc.onDeleteEmployee(empId!);
+      alert('Deleted');
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
